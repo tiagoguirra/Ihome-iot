@@ -34,8 +34,9 @@ Thumbs.db
 dist/**/*
 dist/
 
-# ignore yarn.lock
+# ignore .lock
 yarn.lock
+package-lock.json
 
 /public/supplier-themes/*
 !/public/supplier-themes/.gitkeep
