@@ -17,6 +17,7 @@ export class TemperatureSensor extends BaseAccessory {
   public temperature: number = 0
   constructor(params: AccessoryParams) {
     super({ ...params, category: Categories.SENSOR })
+    this.categoryName = 'TemperatureSensor'
     this.init()
   }
   private init() {

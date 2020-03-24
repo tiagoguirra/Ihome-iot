@@ -20,6 +20,7 @@ export class Fan extends BaseAccessory {
   private useSpeed: boolean = false
   constructor(params: FanParams) {
     super({ ...params, category: Categories.FAN })
+    this.categoryName = 'Fan'
     this.useSpeed = params.speed || false
     this.init()
   }

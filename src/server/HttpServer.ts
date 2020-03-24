@@ -2,16 +2,16 @@ import * as express from 'express'
 import * as http from 'http'
 import * as cors from 'cors'
 import * as socketIo from 'socket.io'
-import { AccessoryServer } from './AccessoryServer'
-import { logDebug } from './utils/logger'
-import { bridgeInit } from './BridgeCore'
+import { SocketServer } from './SocketServer'
+import { logDebug } from '../utils/logger'
+import { bridgeInit } from '../BridgeCore'
 
-export default class Server {
+export class HttpServer {
   app: express.Application
   route: any
   logger: any
   io: SocketIO.Server
-  serverAccessory: AccessoryServer
+  SocketServer: SocketServer
   serverHttp: http.Server
   constructor() {
     this.app = express()
@@ -38,7 +38,7 @@ export default class Server {
     bridgeInit()
     this.serverHttp = http.createServer(this.app)
     this.io = socketIo(this.serverHttp)
-    this.serverAccessory = new AccessoryServer(this.io)
+    this.SocketServer = new SocketServer(this.io)
   }
   async run() {
     try {

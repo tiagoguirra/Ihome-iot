@@ -1,11 +1,11 @@
-import Server from './server'
+import { HttpServer } from './server/HttpServer'
 import * as fs from 'fs-extra'
 import * as path from 'path'
 import { logDebug, logFile } from './utils/logger'
 import { config as envConfig } from 'dotenv'
 
 const startConfig = () => {
-  const configPath = path.resolve(__dirname,'..', '.env')
+  const configPath = path.resolve(__dirname, '..', '.env')
   if (fs.existsSync(configPath)) {
     envConfig({ path: configPath })
   } else {
@@ -21,9 +21,9 @@ const bootstrap = async () => {
     } else {
       logDebug.debug('Ambiente de produção, usando variaveis do processo')
     }
-    process.env.ROOT_PATH = path.resolve(__dirname,'..')
-    process.env.PUBLIC_PATH = path.resolve(process.env.ROOT_PATH,'public')
-    Server.init()
+    process.env.ROOT_PATH = path.resolve(__dirname, '..')
+    process.env.PUBLIC_PATH = path.resolve(process.env.ROOT_PATH, 'public')
+    HttpServer.init()
   } catch (err) {
     logDebug.error('Uma exceção quebrou a execução da aplicação: ', err)
     logFile(err, 'main')

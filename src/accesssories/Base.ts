@@ -12,18 +12,21 @@ export class BaseAccessory {
   public outputLogs: boolean = true
   public category: Categories
   protected _accessory: Accessory
-  public deviceUUID: string
+  public deviceID: string
+  public socketID: string
   protected socket: Socket
+  public categoryName: string
   constructor(params: AccessoryParams) {
     this.name = params.name
     this.pincode = params.pincode
     this.username = params.username
     this.category = params.category
     this.socket = params.socket
-    this.deviceUUID = uuid.generate(
-      `accessories:${this.name}:${Categories.LIGHTBULB}:${this.username}:${this.pincode}`
+    this.socketID = this.socket.id
+    this.deviceID = uuid.generate(
+      `accessories:${this.socketID}${this.name}:${Categories.LIGHTBULB}:${this.username}:${this.pincode}`
     )
-    this._accessory = new Accessory(this.name, this.deviceUUID)
+    this._accessory = new Accessory(this.name, this.deviceID)
     this._accessory.on(
       AccessoryEventTypes.IDENTIFY,
       (paired: boolean, callback: VoidCallback) => {
@@ -32,13 +35,13 @@ export class BaseAccessory {
       }
     )
   }
-  protected sendAction(event: string, data?: any): Promise<void> {
+  public sendAction(event: string, data?: any): Promise<void> {
     return new Promise((resolve, reject) => {
       this.socket.emit(event, data || '')
       resolve()
     })
   }
-  protected getAction(event: string, data?: any): Promise<string> {
+  public getAction(event: string, data?: any): Promise<string> {
     return new Promise((resolve, reject) => {
       this.sendAction(event, data || '')
         .then(() => this.listenOnce(event))
@@ -93,4 +96,3 @@ export class BaseAccessory {
     return this._accessory
   }
 }
-

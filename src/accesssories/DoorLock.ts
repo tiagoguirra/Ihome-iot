@@ -19,6 +19,7 @@ export class DoorLock extends BaseAccessory {
   public status: LockDoorStatus = LockDoorStatus.locked
   constructor(params: AccessoryParams) {
     super({ ...params, category: Categories.DOOR_LOCK })
+    this.categoryName = 'DoorLock'
     this.init()
   }
   private init() {

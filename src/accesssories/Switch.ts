@@ -18,6 +18,7 @@ export class Switch extends BaseAccessory {
   public power: boolean = false
   constructor(params: AccessoryParams) {
     super({ ...params, category: Categories.SWITCH })
+    this.categoryName = 'Switch'
     this.init()
   }
   private init() {

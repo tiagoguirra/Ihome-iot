@@ -20,6 +20,7 @@ export class Ligth extends BaseAccessory {
   private useBrightness: boolean
   constructor(params: LightParams) {
     super({ ...params, category: Categories.LIGHTBULB })
+    this.categoryName = 'Ligth'
     this.useBrightness = params.brightness || false
     this.init()
   }

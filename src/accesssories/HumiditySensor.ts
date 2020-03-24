@@ -17,6 +17,7 @@ export class HumiditySensor extends BaseAccessory {
   public humidity: number = 0
   constructor(params: AccessoryParams) {
     super({ ...params, category: Categories.SENSOR })
+    this.categoryName = 'HumiditySensor'
     this.init()
   }
   private init() {
