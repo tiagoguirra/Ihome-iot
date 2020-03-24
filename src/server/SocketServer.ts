@@ -23,8 +23,8 @@ export class SocketServer {
         accessoriesList.push({
           name: accessory.name,
           category: accessory.categoryName,
-          uuid: accessory.deviceID,
-          socketId: accessory.socketID
+          deviceID: accessory.deviceID,
+          socketID: accessory.socketID
         })
       })
     })
@@ -78,8 +78,8 @@ export class SocketServer {
       this.dashboardServer.emit('addAccessory', {
         name: accessory.name,
         category: accessory.categoryName,
-        uuid: accessory.deviceID,
-        socketId: accessory.socketID
+        deviceID: accessory.deviceID,
+        socketID: accessory.socketID
       })
     } catch (err) {
       socket.emit('upFailure', err.message)
@@ -92,8 +92,8 @@ export class SocketServer {
       this.dashboardServer.emit('removeAccessory', {
         name: accessory.name,
         category: accessory.categoryName,
-        uuid: accessory.deviceID,
-        socketId: accessory.socketID
+        deviceID: accessory.deviceID,
+        socketID: accessory.socketID
       })
     })
   }
@@ -111,7 +111,7 @@ export class SocketServer {
       socket.on('accessories', () => this.listAccessories(socket))
       socket.on('sendAction', ({ event, data, socketID, deviceID }) => {
         try {
-          this.sendActionAccessory(event, data, socketID, deviceID)
+          this.sendActionAccessory(socketID, deviceID, event, data)
         } catch (err) {
           socket.emit('sendActionFailure', {
             socketID,
@@ -125,9 +125,9 @@ export class SocketServer {
         async ({ event, data = '', socketID, deviceID }) => {
           try {
             let value = await this.getActionAccessory(
-              event,
               socketID,
               deviceID,
+              event,
               data
             )
             socket.emit('getActionSuccess', {

@@ -13,6 +13,7 @@ export class BaseAccessory {
   public category: Categories
   protected _accessory: Accessory
   public deviceID: string
+  public deviceMAC: string
   public socketID: string
   protected socket: Socket
   public categoryName: string
@@ -23,8 +24,9 @@ export class BaseAccessory {
     this.category = params.category
     this.socket = params.socket
     this.socketID = this.socket.id
+    this.deviceMAC = params.mac || this.ramdonMac()
     this.deviceID = uuid.generate(
-      `accessories:${this.socketID}${this.name}:${Categories.LIGHTBULB}:${this.username}:${this.pincode}`
+      `accessories:${this.deviceMAC}:${Categories.LIGHTBULB}:${this.username}:${this.pincode}`
     )
     this._accessory = new Accessory(this.name, this.deviceID)
     this._accessory.on(
@@ -34,6 +36,14 @@ export class BaseAccessory {
         callback()
       }
     )
+  }
+  private ramdonMac(): string {
+    let mac = ''
+    for (let i = 0; i < 12; i++) {
+      if (i % 2 === 0) mac += ':'
+      mac += Math.floor(Math.random() * 16).toString(16)
+    }
+    return mac
   }
   public sendAction(event: string, data?: any): Promise<void> {
     return new Promise((resolve, reject) => {

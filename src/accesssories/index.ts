@@ -19,6 +19,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket,
         brightness: params.brightness || false
       })
@@ -27,6 +28,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket
       })
     case 'Fan':
@@ -34,6 +36,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket,
         speed: params.speed || false
       })
@@ -42,6 +45,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket
       })
     case 'TemperatureSensor':
@@ -49,6 +53,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket
       })
     case 'Switch':
@@ -56,6 +61,7 @@ const getAcessory = (
         username: process.env.BRIDGE_USERNAME,
         pincode: process.env.BRIDGE_PINCODE,
         name,
+        mac: params.mac || '',
         socket: socket
       })
     default:

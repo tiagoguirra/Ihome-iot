@@ -4,6 +4,7 @@ export interface AccessoryParams {
   name: string
   pincode: string
   username: string
+  mac: string
   category?: Categories
   socket: Socket
 }
